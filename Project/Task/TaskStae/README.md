@@ -1,7 +1,7 @@
 TÌM HIỂU VỀ RTOS
 ---
 [Tài liệu tham khảo RTOS](https://www.freertos.org/Documentation/00-Overview)
-[](https://github.com/FreeRTOS/FreeRTOS-Kernel-Book/blob/main/toc.md)
+[Tài liệu tham khảo RTOS](https://github.com/FreeRTOS/FreeRTOS-Kernel-Book/blob/main/toc.md)
 
 # TASK
 ## TASK STATE
@@ -21,114 +21,12 @@ TÌM HIỂU VỀ RTOS
 	thái Tạm dừng khi được lệnh rõ ràng thực hiện điều đó thông qua các lệnh gọi API vTaskSuspend() và xTaskResume() tương ứng.
 
 - Ví dụ 
-```
-#include <DHT.h>
-// Define DHT sensor type and pin
-#define DHTPIN 4       // DHT sensor pin
-#define DHTTYPE DHT11   // DHT11 or DHT22
-
-DHT dht(DHTPIN, DHTTYPE);
-
-// Task handles
-TaskHandle_t TaskDHTHandle = NULL;
-
-void setup() {
-  Serial.begin(115200);
-  dht.begin();
-
-  // Create a task to read DHT sensor data
-  xTaskCreatePinnedToCore(
-    TaskDHT,         // Function that implements the task
-    "TaskDHT",       // Name of the task
-    10000,           // Stack size in words
-    NULL,            // Task input parameter
-    1,               // Priority of the task
-    &TaskDHTHandle,  // Task handle
-    1);              // Core where the task should run
-}
-
-void loop() {
-  // Main loop does nothing, all work is done in the TaskDHT function
-}
-
-void TaskDHT(void *pvParameters) {
-  (void) pvParameters;
-      // Read temperature and humidity from the DHT sensor
-    float h = dht.readHumidity();
-    float t = dht.readTemperature();
-  for (;;) {
-    // Indicate that the task is in the Running state
-    Serial.println("Task is in the Running state");
-
-    // Check if any reads failed and exit early (to try again)
-    if (isnan(h) || isnan(t)) {
-      Serial.println("Failed to read from DHT sensor!");
-    } else {
-      // Print the temperature and humidity values to Serial Monitor
-      Serial.print("Humidity: ");
-      Serial.print(h);
-      Serial.print(" %\t");
-      Serial.print("Temperature: ");
-      Serial.print(t);
-      Serial.println(" *C ");
-    }
-
-    // Task delay for a while to avoid flooding Serial Monitor
-    vTaskDelay(pdMS_TO_TICKS(2000));
-  }
-}
-```
+[Xem code mẫu](TaskStae.ino)
 ![Alt](anh1.PNG)
-```
-// Task handles
-TaskHandle_t Task1Handle = NULL;
-TaskHandle_t Task2Handle = NULL;
 
-void setup() {
-  Serial.begin(115200);
-
-  // Create Task1 with higher priority
-  xTaskCreate(
-    Task1,       // Function that implements the task
-    "Task1",     // Name of the task
-    1000,        // Stack size in words
-    NULL,        // Task input parameter
-    2,           // Priority of the task
-    &Task1Handle // Task handle
-  );
-
-  // Create Task2 with lower priority
-  xTaskCreate(
-    Task2,       // Function that implements the task
-    "Task2",     // Name of the task
-    1000,        // Stack size in words
-    NULL,        // Task input parameter
-    1,           // Priority of the task
-    &Task2Handle // Task handle
-  );
-}
-
-void loop() {
-  // Main loop does nothing, all work is done in the tasks
-}
-
-void Task1(void *pvParameters) {
-  for (;;) {
-    Serial.println("Task1 is Running");
-    // Simulate some work by delaying for 1000ms
-    vTaskDelay(3000 / portTICK_PERIOD_MS);
-  }
-}
-
-void Task2(void *pvParameters) {
-  for (;;) {
-    Serial.println("Task2 is Running");
-    // Simulate some work by delaying for 500ms
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
-  }
-}
-```
+[Xem code mẫu](blocked_ptiority.ino)
 ![Alt](anh2.PNG)
+
 - Ví dụ suspeding & resuming
 [xem code mẫu](suspeding_resuming.ino)
 ![Alt](anh3.PNG)
