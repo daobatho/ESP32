@@ -1,10 +1,10 @@
 TÌM HIỂU VỀ RTOS
 ---
 [Tài liệu tham khảo RTOS](https://www.freertos.org/Documentation/00-Overview)
-						 (https://github.com/FreeRTOS/FreeRTOS-Kernel-Book/blob/main/toc.md)
+[](https://github.com/FreeRTOS/FreeRTOS-Kernel-Book/blob/main/toc.md)
 
-#TASK
-##TASK STATE
+# TASK
+## TASK STATE
 - 1 Task có thể ở 1 trong các trạng thái sau
 	- Running: Khi một tác vụ thực sự được thực thi, nó được cho là ở trạng thái Đang chạy. Nó hiện đang sử dụng bộ xử lý. 
 	Nếu bộ xử lý mà RTOS đang chạy chỉ có một lõi thì chỉ có thể có một tác vụ ở trạng thái Đang chạy tại bất kỳ thời điểm nào.
@@ -130,5 +130,5 @@ void Task2(void *pvParameters) {
 ```
 ![Alt](anh2.PNG)
 - Ví dụ suspeding & resuming
-![xem code mẫu](suspeding_resuming.ino)
+[xem code mẫu](suspeding_resuming.ino)
 ![Alt](anh3.PNG)
