@@ -34,5 +34,7 @@ typedef struct {
 - API riêng biệt (FromISR) được cung cấp cho các hàng đợi khi được sử dụng trong ngữ cảnh interrupt để đảm bảo hiệu suất và tránh overhead.
 - Ví dụ :
 [xem tại đây](queue.ino)
+![Alt](anh1.PNG)
 - áp dụng với đọc dht hiển thị lcd
 [xem tại đây](dht_lcd_queue.ino)
+![Alt](demo.jpg)
